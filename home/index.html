@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DRAKESTYLE | HOME</title>
+<style>
+body{margin:0;padding:0;font-family:Arial;background:#000;color:#fff;text-align:center;}
+header{padding:40px 20px;border-bottom:1px solid #222;}
+header h1{font-size:48px;letter-spacing:4px;}
+header p{margin-top:10px;color:#aaa;}
+nav{display:flex;justify-content:center;gap:30px;padding:20px;border-bottom:1px solid #222;}
+nav a{color:#fff;text-decoration:none;}
+.hero{padding:80px 20px;}
+.hero-box{display:inline-block;padding:25px 50px;border:3px solid #fff;border-radius:20px;transition:0.3s;}
+.hero-box h2{font-size:36px;letter-spacing:3px;color:#fff;}
+.hero-box:hover{box-shadow: inset 0 0 0 1px #00aaff,0 0 14px rgba(0,170,255,0.5);background: rgba(0,170,255,0.06);}
+.section{padding:60px 20px;border-top:1px solid #222;}
+.section h3{font-size:28px;margin-bottom:40px;}
+.cards{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;}
+.card-link{text-decoration:none;color:inherit;}
+.card{width:260px;padding:25px;background:#111;border:3px solid #fff;border-radius:18px;transition:0.3s;}
+.card h2{color:#fff;letter-spacing:2px;margin-bottom:8px;text-align:center;}
+.card p{color:#fff;font-size:14px;}
+.card:hover{box-shadow: inset 0 0 0 1px #00aaff,0 0 14px rgba(0,170,255,0.5);background: rgba(0,170,255,0.06);transform:scale(1.05);}
+footer{margin-top:60px;padding:30px;border-top:1px solid #222;font-size:14px;}
+#hero-logo{width:120px;margin-top:20px;border-radius:10px;}
+</style>
+</head>
+<body>
+
+<header>
+<h1>DRAKESTYLE</h1>
+<p>BET WEAPON NEVER LOSE</p>
+<img id="hero-logo" src="" alt="HERO LOGO">
+</header>
+
+<nav>
+<a href="/drakestyle/home/">HOME</a>
+<a href="#">ABOUT</a>
+<a href="#">CONTACT</a>
+<a href="/drakestyle/login.html">ADMIN</a>
+</nav>
+
+<section class="hero">
+<a href="/drakestyle/listname.html" class="hero-link">
+<div class="hero-box"><h2>HOUSE OF DRAKE</h2></div>
+</a>
+</section>
+
+<section class="section">
+<h3>CHECK LISTNAME</h3>
+<div class="cards" id="cards-container"></div>
+</section>
+
+<footer>© 2026 DRAKE | DESIGNED BY CRYNET</footer>
+
+<script>
+// โหลด default data หรือจาก localStorage
+let stored = JSON.parse(localStorage.getItem('membersData')) || {};
+let membersData = stored.members || {
+  comingsoon:[{name:'COMING SOON', fb:'https://facebook.com/comingsoon', img:''}],
+  drakestyle:[{name:'DRAKESTYLE', fb:'https://facebook.com/drakestyle', img:''}],
+  tested:[{name:"TESTE'D", fb:'https://facebook.com/tested', img:''}]
+};
+let heroLogo = stored.hero || '';
+document.getElementById('hero-logo').src = heroLogo || 'https://via.placeholder.com/120x120?text=HERO';
+
+// Render การ์ด
+function renderCards(){
+  const container = document.getElementById('cards-container');
+  container.innerHTML='';
+  Object.keys(membersData).forEach(group=>{
+    const cardLink=document.createElement('a');
+    cardLink.href=`/drakestyle/listname.html?card=${group}`;
+    cardLink.className='card-link';
+    const card=document.createElement('div');
+    card.className='card';
+    const memberType=group.toLowerCase()==='drakestyle'?'LEADER':'MEMBER';
+    card.innerHTML=`<h2>${group.toUpperCase()}</h2><p>${memberType}</p>`;
+    cardLink.appendChild(card);
+    container.appendChild(cardLink);
+  });
+}
+renderCards();
+</script>
+
+</body>
+</html>

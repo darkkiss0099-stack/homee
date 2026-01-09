@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LISTNAME | DRAKESTYLE</title>
+<style>
+body{margin:0;padding:0;font-family:Arial;background:#000;color:#fff;text-align:center;}
+.back-btn{display:inline-block;margin:20px;color:#00aaff;text-decoration:none;font-weight:bold;}
+.search-box{margin:20px;}
+.search-box input{padding:8px;width:250px;border-radius:5px;border:none;}
+.cards{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;}
+.card{background:#111;padding:15px;border-radius:10px;width:220px;transition:0.3s;}
+.card:hover{box-shadow:0 0 10px #00aaff;transform:scale(1.05);}
+.card img{width:80px;height:80px;border-radius:50%;margin-bottom:10px;}
+.card h3{margin:5px 0;}
+</style>
+</head>
+<body>
+
+<a href="/drakestyle/home/" class="back-btn">← กลับหน้า Home</a>
+
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="ค้นหาชื่อ...">
+</div>
+
+<div class="cards" id="cards-container"></div>
+
+<script>
+// โหลดข้อมูล
+let stored = JSON.parse(localStorage.getItem('membersData')) || {};
+let membersData = stored.members || {
+  comingsoon:[{name:'COMING SOON', fb:'https://facebook.com/comingsoon', img:''}],
+  drakestyle:[{name:'DRAKESTYLE', fb:'https://facebook.com/drakestyle', img:''}],
+  tested:[{name:"TESTE'D", fb:'https://facebook.com/tested', img:''}]
+};
+
+// Render
+function renderCards(filter=''){
+  const container=document.getElementById('cards-container');
+  container.innerHTML='';
+  Object.keys(membersData).forEach(group=>{
+    membersData[group].forEach(member=>{
+      if(member.name.toLowerCase().includes(filter.toLowerCase())){
+        const card=document.createElement('div');
+        card.className='card';
+        card.innerHTML=`<img src="${member.img||'https://graph.facebook.com/'+member.fb.split('/').pop()+'/picture?type=large'}">
+                        <h3>${member.name}</h3>
+                        <p>${group.toUpperCase()}</p>`;
+        container.appendChild(card);
+      }
+    });
+  });
+}
+
+document.getElementById('searchInput').addEventListener('input',e=>renderCards(e.target.value));
+
+renderCards();
+</script>
+
+</body>
+</html>

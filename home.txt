@@ -1,0 +1,6 @@
+drakestyle/          ← root repository
+├─ home/
+│  └─ index.html      ← หน้า Home
+├─ login.html         ← หน้า Admin Login
+├─ admin.html         ← หน้า Admin Panel
+├─ listname.html      ← หน้า Listname
